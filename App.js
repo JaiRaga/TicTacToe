@@ -10,8 +10,11 @@ export default function App() {
         style={styles.background}
         resizeMode="contain"
       >
-        <View style={styles.circle}>
-          <View style={styles.innerCircle} />
+        <View style={styles.circle} />
+
+        <View>
+          <View style={styles.crossLine} />
+          <View style={[styles.crossLine, styles.crossLineReversed]} />
         </View>
       </ImageBackground>
 
@@ -39,14 +42,24 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
     borderRadius: 50,
-    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
+    margin: 10,
+    borderWidth: 10,
+    borderColor: "white"
   },
-  innerCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    backgroundColor: "#242D34",
+  crossLine: {
+    position: "absolute",
+    width: 10,
+    height: 75,
+    backgroundColor: "white",
+    transform: [{ rotate: "45deg" }],
+  },
+  crossLineReversed: {
+    transform: [
+      {
+        rotate: "-45deg",
+      },
+    ],
   },
 });
