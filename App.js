@@ -10,11 +10,13 @@ export default function App() {
         style={styles.background}
         resizeMode="contain"
       >
-        <View style={styles.circle} />
+        <View style={styles.map}>
+          <View style={styles.circle} />
 
-        <View>
-          <View style={styles.crossLine} />
-          <View style={[styles.crossLine, styles.crossLineReversed]} />
+          <View style={styles.cross}>
+            <View style={styles.crossLine} />
+            <View style={[styles.crossLine, styles.crossLineReversed]} />
+          </View>
         </View>
       </ImageBackground>
 
@@ -38,7 +40,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 15,
   },
+  map: {
+    borderWidth: 1,
+    borderColor: "white",
+    width: "80%",
+    aspectRatio: 1 
+  },
   circle: {
+    position: "absolute",
+    left: 2 * 108,
+    top: 2 * 108,
     width: 75,
     height: 75,
     borderRadius: 50,
@@ -46,10 +57,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 10,
     borderWidth: 10,
-    borderColor: "white"
+    borderColor: "white",
+  },
+  cross: {
+    // backgroundColor: "red",
+    position: "absolute",
+    width: 75,
+    height: 75
   },
   crossLine: {
     position: "absolute",
+    left: 32.5,
     width: 10,
     height: 75,
     backgroundColor: "white",
