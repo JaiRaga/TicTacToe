@@ -1,8 +1,25 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Pressable,
+} from "react-native";
 import bg from "./assets/bg.jpeg";
 
 export default function App() {
+  const [gameMap, setGameMap] = useState([
+    ["o", "", "x"], // 1st row
+    ["", "x", ""], // 2nd row
+    ["o", "", "o"], // 3rd row
+  ]);
+
+  const onPress = (row, col) => {
+    console.warn(row, col);
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -11,12 +28,27 @@ export default function App() {
         resizeMode="contain"
       >
         <View style={styles.map}>
-          <View style={styles.circle} />
-
-          <View style={styles.cross}>
-            <View style={styles.crossLine} />
-            <View style={[styles.crossLine, styles.crossLineReversed]} />
-          </View>
+          {gameMap.map((row, rowInd) => (
+            <View key={rowInd} style={styles.row}>
+              {row.map((cell, colInd) => (
+                <Pressable
+                  key={colInd}
+                  onPress={() => onPress(rowInd, colInd)}
+                  style={styles.cell}
+                >
+                  {cell === "o" && <View style={styles.circle} />}
+                  {cell === "x" && (
+                    <View style={styles.cross}>
+                      <View style={styles.crossLine} />
+                      <View
+                        style={[styles.crossLine, styles.crossLineReversed]}
+                      />
+                    </View>
+                  )}
+                </Pressable>
+              ))}
+            </View>
+          ))}
         </View>
       </ImageBackground>
 
@@ -44,12 +76,24 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "white",
     width: "80%",
-    aspectRatio: 1 
+    aspectRatio: 1,
+  },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+    // borderColor: "yellow",
+    // borderWidth: 1,
+    padding: 5,
+    // backgroundColor: 'green'
+  },
+  cell: {
+    width: 100,
+    height: 100,
+    flex: 1,
+    // borderColor: "red",
+    // borderWidth: 2,
   },
   circle: {
-    position: "absolute",
-    left: 2 * 108,
-    top: 2 * 108,
     width: 75,
     height: 75,
     borderRadius: 50,
@@ -61,15 +105,13 @@ const styles = StyleSheet.create({
   },
   cross: {
     // backgroundColor: "red",
-    position: "absolute",
-    width: 75,
-    height: 75
+    flex: 1,
   },
   crossLine: {
     position: "absolute",
-    left: 32.5,
+    left: "48%",
     width: 10,
-    height: 75,
+    height: "100%",
     backgroundColor: "white",
     transform: [{ rotate: "45deg" }],
   },
