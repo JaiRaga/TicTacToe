@@ -6,6 +6,7 @@ import {
   View,
   ImageBackground,
   Pressable,
+  Alert,
 } from "react-native";
 import bg from "./assets/bg.jpeg";
 
@@ -17,7 +18,15 @@ export default function App() {
   ]);
 
   const onPress = (row, col) => {
-    console.warn(row, col);
+    if (gameMap[row][col] !== "") {
+      Alert.alert("Position already selected.");
+    } else {
+      setGameMap((oldGameMap) => {
+        const newGameMap = [...oldGameMap]
+        newGameMap[row][col] = 'o'
+        return newGameMap
+      })
+    }
   };
 
   return (
