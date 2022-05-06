@@ -12,21 +12,25 @@ import bg from "./assets/bg.jpeg";
 
 export default function App() {
   const [gameMap, setGameMap] = useState([
-    ["o", "", "x"], // 1st row
-    ["", "x", ""], // 2nd row
-    ["o", "", "o"], // 3rd row
+    ["", "", ""], // 1st row
+    ["", "", ""], // 2nd row
+    ["", "", ""], // 3rd row
   ]);
+  const [currentPlayer, setCurrentPlayer] = useState("x");
 
   const onPress = (row, col) => {
     if (gameMap[row][col] !== "") {
       Alert.alert("Position already selected.");
-    } else {
+    } 
+    else {
       setGameMap((oldGameMap) => {
-        const newGameMap = [...oldGameMap]
-        newGameMap[row][col] = 'o'
-        return newGameMap
-      })
+        const newGameMap = [...oldGameMap];
+        newGameMap[row][col] = currentPlayer;
+        return newGameMap;
+      });
     }
+
+    setCurrentPlayer(currentPlayer === 'x' ? 'o' : 'x')
   };
 
   return (
